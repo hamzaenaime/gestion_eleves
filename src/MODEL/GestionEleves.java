@@ -21,9 +21,23 @@ public class GestionEleves {
         con = dao.getConnection();
     }
 
-    public void addEleve(String nom, String prenom, int age, String filiere, String annee) {
+    public void addEleve(String nom, String prenom, int age, String annee) {
         int id = getId();
-        String req = "insert into eleve values(" + id + ",'" + nom + "','" + prenom + "'," + age + ",'" + filiere + "','" + annee + "')";
+        String f="";
+        if(annee.contains("ginf")){
+            f="ginf";
+        }else if(annee.contains("gsea")){
+            f="gsea";
+        }else if(annee.contains("gind")){
+            f="gind";
+        }else if(annee.contains("gstr")){
+            f="gstr";
+        }else if(annee.contains("g3ei")){
+            f="g3ei";
+        }else if(annee.contains("cp")){
+            f="cp";
+        }
+        String req = "insert into eleve values(" + id + ",'" + nom + "','" + prenom + "'," + age + ",'" + f + "','" + annee + "')";
 
         try {
             st = con.createStatement();
@@ -44,8 +58,22 @@ public class GestionEleves {
         }
     }
     
-    public void updateEleve(int id,String nom, String prenom, int age, String filiere, String annee){
-        String req="update eleve set nom='"+nom+"',prenom='"+prenom+"',age="+age+",filiere='"+filiere+"',annee='"+annee+"' where id="+id;
+    public void updateEleve(int id,String nom, String prenom, int age, String annee){
+        String f="";
+        if(annee.contains("ginf")){
+            f="ginf";
+        }else if(annee.contains("gsea")){
+            f="gsea";
+        }else if(annee.contains("gind")){
+            f="gind";
+        }else if(annee.contains("gstr")){
+            f="gstr";
+        }else if(annee.contains("g3ei")){
+            f="g3ei";
+        }else if(annee.contains("cp")){
+            f="cp";
+        }
+        String req="update eleve set nom='"+nom+"',prenom='"+prenom+"',age="+age+",filiere='"+f+"',annee='"+annee+"' where id="+id;
         
         try {
             st=con.createStatement();
@@ -58,6 +86,20 @@ public class GestionEleves {
     public ResultSet readEleves(){
         ResultSet res;
         String req = "select * from eleve";
+        
+        try {
+            st=con.createStatement();
+            res=st.executeQuery(req);
+            return res;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public ResultSet readEleves(String annee){
+        ResultSet res;
+        String req = "select * from eleve where annee='"+annee+"'";
         
         try {
             st=con.createStatement();
