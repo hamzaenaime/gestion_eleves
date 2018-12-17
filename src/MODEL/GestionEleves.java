@@ -129,7 +129,7 @@ public class GestionEleves {
     
     public ResultSet filieres(){
         ResultSet res;
-        String req="select distinct(filiere) from filieres";
+        String req="select distinct(filiere) from eleves";
         try {
             st=con.createStatement();
             res=st.executeQuery(req);
@@ -142,7 +142,7 @@ public class GestionEleves {
     
     public ResultSet annees(){
         ResultSet res;
-        String req="select annee from filieres";
+        String req="select annee from eleves";
         try {
             st=con.createStatement();
             res=st.executeQuery(req);
